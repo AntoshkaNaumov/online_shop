@@ -1,0 +1,19 @@
+{% extends 'shop/base2.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Ваш существующий HTML-код для входа -->
+    
+    <div class="registration-form">
+        <h2>Регистрация</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+
+
+    <!-- Дополнительный HTML-код, если необходимо -->
+
+{% endblock %}

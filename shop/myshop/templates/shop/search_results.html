@@ -1,0 +1,31 @@
+{% extends 'shop/base2.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="product_list section_padding">
+    <div class="container">
+      <h2>Результаты поиска для: "{{ query }}"</h2>
+      <div class="row">
+        {% if products %}
+          {% for product in products %}
+            <div class="col-lg-6 col-sm-6">
+              <div class="single_product_item">
+                {% if product.image_1 %}
+                  <img src="{{ product.image_1.url }}" alt="{{ product.name }}" class="img-fluid">
+                {% elif product.image_2 %}
+                  <img src="{{ product.image_2.url }}" alt="{{ product.name }}" class="img-fluid">
+                {% elif product.image_3 %}
+                  <img src="{{ product.image_3.url }}" alt="{{ product.name }}" class="img-fluid">
+                {% endif %}
+                <h3><a href="{% url 'myshop:single-product' product.id product.slug %}">{{ product.name }}</a></h3>
+                <p>руб. {{ product.price }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>Ничего не найдено</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

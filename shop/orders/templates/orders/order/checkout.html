@@ -1,0 +1,107 @@
+{% extends 'shop/base2.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- breadcrumb part start-->
+    <section class="breadcrumb_part">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner">
+                        <h2>оформление заказа</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb part end-->
+
+  <!--================Checkout Area =================-->
+  <section class="checkout_area section_padding">
+    <div class="container">
+      <div class="returning_customer">
+        <div class="check_title">
+          <h2>
+            Возвращающийся покупатель?
+            <a href="#">Нажмите здесь, чтобы войти в систему</a>
+          </h2>
+        </div>
+        <p>
+          Если вы уже совершали покупки у нас раньше, пожалуйста, введите свои данные в
+          поля ниже. Если вы новый клиент, пожалуйста, перейдите в раздел
+          Выставления счетов и доставки.
+        </p>
+        <form method="post" action="{% url 'orders:login2' %}">
+          {% csrf_token %}
+          <div class="col-md-4 form-group p_star">
+            <input type="text" class="form-control" id="name" name="name" value="" placeholder="Имя пользователя">
+          </div>
+          <div class="col-md-4 form-group p_star">
+            <input type="password" class="form-control" id="password" name="password" value="" placeholder="Пароль">
+          </div>
+          <div class="col-md-6 form-group">
+            <div class="creat_account d-flex align-items-center">
+              <input type="checkbox" id="f-option" name="selector">
+              <label for="f-option">Запомни меня</label>
+            </div>
+            <button type="submit" value="submit" class="btn_3">
+              авторизоваться
+            </button>
+          </div>
+        </form>
+        <form class="row contact_form" method="post" novalidate="novalidate">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="col-md-12 form-group">
+            <button type="submit" class="btn_3">
+              оформить заказ
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="billing_details">
+        <div class="row">
+          <div class="col-lg-8">
+          </div>
+          <div class="col-lg-4">
+            <div class="order_box">
+              <h2>Ваш заказ</h2>
+              <ul class="list">
+                <li>
+                  <a href="#">Товар
+                    <span>Итого</span>
+                  </a>
+                </li>
+                {% for item in cart %}
+                <li>
+                  <a href="#">{{ item.product.name }}
+                    <span class="middle">x {{ item.quantity }}</span>
+                    <span class="last">руб. {{ item.total_price }}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+              <ul class="list list_2">
+                <li>
+                  <a href="#">Промежуточный итог
+                    <span>руб. {{ cart.get_total_price1 }}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Доставка
+                    <span>Единый тариф: руб. {{ delivery_cost }}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Общая сумма
+                    <span>руб. {{ total_price }}</span>
+                  </a>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================End Checkout Area =================-->
+{% endblock %}

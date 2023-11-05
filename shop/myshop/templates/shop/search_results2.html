@@ -1,0 +1,23 @@
+<!-- search_results2.html -->
+{% extends 'shop/base2.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Результаты поиска</h1>
+    <form method="GET">
+        <input type="text" name="q" value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+        <ul>
+            {% for item in results %}
+                <li>{{ item.name }}</li>
+                <li>{{ item.description }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</div>
+{% endblock %}

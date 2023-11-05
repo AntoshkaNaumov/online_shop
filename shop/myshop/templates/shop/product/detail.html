@@ -1,0 +1,71 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ product.name }}
+{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+  {% if product.image_1 %}
+    <img src="{{ product.image_1.url }}" alt="{{ product.name }} Image 1" >
+  {% elif product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.name }} Main Image">
+  {% else %}
+    <img src="{% static "img/no_image.png" %}" alt="No Image">
+  {% endif %}
+
+  {% if product.image_2 %}
+    <img src="{{ product.image_2.url }}" alt="{{ product.name }} Image 2" >
+  {% endif %}
+
+  {% if product.image_3 %}
+  <img src="{{ product.image_3.url }}" alt="{{ product.name }} Image 3" >
+  {% endif %}
+
+  <h1>{{ product.name }}</h1>
+  <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+  <p class="price">руб. {{ product.price }}</p>
+  <form action="{% url 'cart:cart_add' product.id %}" method="post">
+    {{ cart_product_form }}
+    {% csrf_token %}
+    <input type="submit" value="Добавить в корзину">
+  </form>
+</div>
+<div>
+  <br>
+  <p>Понравилось: {{ product.likes_set.all.count }}</p>
+  <br>
+  <a href="{% url 'myshop:add_likes' product.id product.slug %}">Нравится</a>
+  <a href="{% url 'myshop:del_likes' product.id product.slug %}">Не нравится</a>
+</div>
+<div class="form-comment">
+  <h3>Оставить комментарий</h3>
+  <div>
+    <form action="{% url 'myshop:add_comments' product.id %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label>Ваш комментарий</label>
+        <textarea name="text_comments"></textarea>
+      </div>
+      <div>
+        <label>Ваше имя *</label>
+        <input type="text" name="name">
+      </div>
+      <div>
+        <label>Ваш Email *</label>
+        <input type="email" name="email">
+      </div>
+      <div><input type="submit"></div>
+    </form>
+  </div>
+</div>
+<div>
+  {% for comment in product.comments_set.all %}
+  <div class="view-comment">
+    <h4>{{ comment.name }}</h4>
+    <p>{{ comment.text_comments }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
