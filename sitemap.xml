@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Главная страница -->
+  <url>
+    <loc>https://xn--e1apimuz.shop/</loc>
+  </url>
+
+  <!-- О магазине -->
+  <url>
+    <loc>https://xn--e1apimuz.shop/about/</loc>
+  </url>
+
+  <!-- Каталог товаров -->
+  <url>
+    <loc>https://xn--e1apimuz.shop/product_list/</loc>
+  </url>
+
+  <!-- Страница авторизации -->
+  <url>
+    <loc>https://xn--e1apimuz.shop/accounts/login/</loc>
+  </url>
+
+  <!-- Страница контактов -->
+  <url>
+    <loc>https://xn--e1apimuz.shop/contact/</loc>
+  </url>
+
+</urlset>
